@@ -29,7 +29,7 @@ blocks:
               #cache store gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
               Gemfile.lock) vendor/bundle
             - '#bundle exec rake db:setup'
-            - bundle exec rails test
+            - '#bundle exec rails test'
   - name: Docker Build
     task:
       secrets:
