@@ -54,6 +54,7 @@ blocks:
       prologue:
         commands:
           - 'checkout '
+          - cat docker-compose.test.yml | envsubst | tee docker-compose.test.yml
           - >-
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
             --password-stdin
