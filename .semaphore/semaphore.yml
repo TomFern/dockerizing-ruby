@@ -21,9 +21,15 @@ blocks:
             - sem-version ruby 2.7
             - cd drkiq
             - cache restore
+            - >-
+              cache restore gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
+              Gemfile.lock)
             - '# bundle install --deployment --path vendor/bundle'
             - bundle install --path vendor/bundle
             - cache store
+            - >-
+              cache store gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
+              Gemfile.lock) vendor/bundle
             - 'bundle exec rake db:setup'
             - '# bundle exec rspec'
             - bundle exec rails test
