@@ -1,0 +1,61 @@
+version: "3.7"
+
+services:
+
+  postgres:
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: drkiq
+      POSTGRES_PASSWORD: test_db_password
+    ports: 
+      - '5432:5432'
+    volumes:
+      - drkiq-postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0.7
+    ports:
+      - '6379:6379'
+    volumes:
+      - drkiq-redis:/var/lib/redis/data
+
+  drkiq:
+    build:
+      context: .
+      args:
+        USER_ID: "${USER_ID:-1000}"
+        GROUP_ID: "${GROUP_ID:-1000}"
+    links:
+      - postgres
+      - redis
+    volumes:
+      - type: bind
+        source: ./drkiq
+        target: /opt/app/drkiq
+    ports:
+      - '8010:8010'
+    env_file:
+      - .env
+
+  sidekiq:
+    build:
+      context: .
+      args:
+        USER_ID: "${USER_ID:-1000}"
+        GROUP_ID: "${GROUP_ID:-1000}"
+    command: bundle exec sidekiq 
+    links:
+      - postgres
+      - redis
+    volumes:
+      - type: bind
+        source: ./drkiq
+        target: /opt/app/drkiq
+    env_file:
+      - .env
+
+  # add nginx here
+
+volumes:
+  drkiq-postgres:
+  drkiq-redis:
