@@ -21,7 +21,6 @@ blocks:
             - sem-version ruby 2.7
             - cd drkiq
             - cache restore
-            - cd drkiq
             - '# bundle install --deployment --path vendor/bundle'
             - bundle install --path vendor/bundle
             - cache store
