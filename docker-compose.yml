@@ -54,7 +54,14 @@ services:
     env_file:
       - .env
 
-  # add nginx here
+  nginx:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    links:
+      - drkiq
+    ports:
+      - '8020:8020'
 
 volumes:
   drkiq-postgres:

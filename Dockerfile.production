@@ -1,7 +1,7 @@
 # Dockerfile development version
-# Intended to use volumes to map code
+# Intended to run in production
 
-FROM ruby:2.7 AS drkiq-development
+FROM ruby:2.7 AS drkiq-production
 MAINTAINER SemaphoreCI
 
 # Docker build arguments
@@ -30,6 +30,7 @@ WORKDIR /opt/app/drkiq
 RUN bundle install
 
 # Start server as user
+COPY drkiq/ .
 RUN chown -R user:user /opt/app
 USER $USER_ID
 VOLUME ["$INSTALL_PATH/public"]
