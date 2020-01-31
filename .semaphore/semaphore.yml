@@ -16,22 +16,19 @@ blocks:
         - name: Test
           commands:
             - checkout
-            - sem-service start postgres 11
-            - '# sem-version ruby 2.6.5'
-            - sem-version ruby 2.7
-            - cd drkiq
-            - cache restore
+            - '#sem-service start postgres 11'
+            - '#sem-version ruby 2.7'
+            - '#cd drkiq'
+            - '#cache restore'
             - >-
-              cache restore gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
+              #cache restore gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
               Gemfile.lock)
-            - '# bundle install --deployment --path vendor/bundle'
-            - bundle install --path vendor/bundle
-            - cache store
+            - '#bundle install --path vendor/bundle'
+            - '#cache store'
             - >-
-              cache store gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
+              #cache store gems-$SEMAPHORE_GIT_BRANCH-revision-$(checksum
               Gemfile.lock) vendor/bundle
-            - 'bundle exec rake db:setup'
-            - '# bundle exec rspec'
+            - '#bundle exec rake db:setup'
             - bundle exec rails test
   - name: Docker Build
     task:
@@ -41,10 +38,28 @@ blocks:
         - name: Build
           commands:
             - checkout
+            - >-
+              echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
+              --password-stdin
             - 'docker pull $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest || true'
             - >-
               docker build -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
-              --cache-from=$DOCKER_USERNAME/dockerizing-ruby-drkiq:lates
-              --build-arg USER_ID=1000 --build-arg GROUP_ID=1000 .
+              --cache-from=$DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
+              --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
             - 'docker push $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest'
             - 'docker push '
+  - name: Tests
+    task:
+      secrets:
+        - name: dockerhub
+      prologue:
+        commands:
+          - 'checkout '
+          - >-
+            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
+            --password-stdin
+          - 'docker pull $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest || true'
+      jobs:
+        - name: Rail Test
+          commands:
+            - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rails test'
