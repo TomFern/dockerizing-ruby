@@ -33,7 +33,7 @@ blocks:
           - >-
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
             --password-stdin
-  - name: Tests
+  - name: Integration Tests
     task:
       secrets:
         - name: dockerhub
@@ -46,15 +46,9 @@ blocks:
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
             --password-stdin
           - 'docker pull $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest || true'
-          - docker volume create --name drkiq-postgres
-          - docker volume create --name drkiq-redis
-          - docker-compose up -d
-          - sleep 20
           - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rake db:reset'
           - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rake db:migrate'
       jobs:
         - name: Rail Test
           commands:
-            - >-
-              docker-compose -f docker-compose.yml run --user "$(id -u):$(id
-              -g)" drkiq rails test
+            - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rails test'
