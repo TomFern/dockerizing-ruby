@@ -57,7 +57,7 @@ services:
       - .env
 
   nginx:
-    image: $DOCKER_USER/dockerizing-ruby-nginx:latest
+    image: $DOCKER_USERNAME/dockerizing-ruby-nginx:latest
     # build:
     #   context: .
     #   dockerfile: ./Dockerfile.nginx
