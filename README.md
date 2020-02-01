@@ -1,5 +1,3 @@
-![Build Status](https://tomfern.semaphoreci.com/badges/dockerizing-ruby.svg)
-
 # Dockerizing Ruby Tutorial
 
 ## Local setup
