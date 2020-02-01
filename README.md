@@ -1,4 +1,4 @@
-https://tomfern.semaphoreci.com/badges/dockerizing-ruby.svg
+![Build Status](https://tomfern.semaphoreci.com/badges/dockerizing-ruby.svg)
 
 # Dockerizing Ruby Tutorial
 
