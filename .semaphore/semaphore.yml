@@ -41,7 +41,8 @@ blocks:
             - >-
               docker build -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
               --cache-from=$DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
-              --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+              --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -f
+              Dockerfile.production .
             - 'docker push $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest'
         - name: Build nginx
           commands:
