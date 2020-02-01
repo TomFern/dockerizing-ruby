@@ -31,6 +31,8 @@ RUN bundle install
 
 # Start server as user
 COPY drkiq/ .
+RUN rails webpacker:install
+RUN rails assets:precompile
 RUN chown -R user:user /opt/app
 USER $USER_ID
 VOLUME ["$INSTALL_PATH/public"]
