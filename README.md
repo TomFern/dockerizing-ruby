@@ -1,5 +1,6 @@
-# dockerizing-ruby
-Dockerizing Ruby Tutorial
+![Build Status](https://tomfern.semaphoreci.com/badges/dockerizing-ruby.svg)
+
+# Dockerizing Ruby Tutorial
 
 ## Local setup
 
@@ -15,9 +16,7 @@ Start the server:
 $ docker-compose up --build
 ```
 
-
 Browse http://localhost:8020
-
 
 ## Production image
 
@@ -25,28 +24,16 @@ Prepare production environment, set you production values:
 
 ```bash
 $ cp env-example .env
-```bash
-
-
-```bash
-$ docker build --build-arg USER_ID=$(id -u)  --build-arg GROUP_ID=$(id -g) -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest .
-```bash
-
-
-
-
-In addition to these two containers, you’ll need a Postgres and redis databases, and it’s reommended to put a load balancer in front of port 8010
-
-Start drkiq:
-
-```bash
-$ docker run -it --env-file=.env -p 8010:8010 -v VOLUME_MAPS -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
 ```
 
+Build two images:
 
-Start sidekiq
+- drkiq: application
+- nginx: http server
 
 ```bash
-$ docker run -it --env-file=.env -v VOLUME_MAPS -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest bundle exec sidekiq
+$ docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -t $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest -f Dockerfile.production .
+$ docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -t $DOCKER_USERNAME/dockerizing-ruby-nginx:latest -f Dockerfile.nginx .
 ```
+
 
