@@ -57,9 +57,10 @@ services:
       - .env
 
   nginx:
-    build:
-      context: .
-      dockerfile: ./Dockerfile.nginx
+    image: $DOCKER_USER/dockerizing-ruby-nginx:latest
+    # build:
+    #   context: .
+    #   dockerfile: ./Dockerfile.nginx
     links:
       - drkiq
     ports:
