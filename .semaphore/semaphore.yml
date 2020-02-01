@@ -65,16 +65,17 @@ blocks:
         commands:
           - 'checkout '
           - cp env-example .env
-          - cat docker-compose.test.yml | envsubst | tee docker-compose.test.yml
+          - cat docker-compose.test.yml | envsubst | tee docker-compose.yml
           - >-
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
             --password-stdin
           - 'docker pull $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest || true'
           - docker volume create --name drkiq-postgres
           - docker volume create --name drkiq-redis
+          - docker-compose up -d
       jobs:
         - name: Rail Test
           commands:
             - >-
-              docker-compose -f docker-compose.test.yml run --user "$(id
-              -u):$(id -g)" drkiq rails test
+              docker-compose -f docker-compose.yml run --user "$(id -u):$(id
+              -g)" drkiq rails test
