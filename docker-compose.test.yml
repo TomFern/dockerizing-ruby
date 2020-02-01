@@ -20,7 +20,7 @@ services:
       - drkiq-redis:/var/lib/redis/data
 
   drkiq:
-    image: $DOCKER_USER/dockerizing-ruby-drkiq:latest
+    image: $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
     # build:
     #   context: .
     #   args:
@@ -39,7 +39,7 @@ services:
       - .env
 
   sidekiq:
-    image: $DOCKER_USER/dockerizing-ruby-drkiq:latest
+    image: $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
     # build:
     #   context: 
     #   args:
