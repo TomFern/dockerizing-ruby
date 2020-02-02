@@ -16,9 +16,7 @@ blocks:
               --cache-from=$DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
               --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -f
               Dockerfile.production .
-            - >-
-              docker push $DOCKER_USERNAME/dockerizing-ruby-drkiq:latestdocker
-              build -t your-image .
+            - 'docker push $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest'
       secrets:
         - name: dockerhub
       prologue:
