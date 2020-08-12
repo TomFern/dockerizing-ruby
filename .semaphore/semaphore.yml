@@ -41,10 +41,3 @@ blocks:
         - name: Rails Test
           commands:
             - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rails test'
-promotions:
-  - name: a
-    pipeline_file: pipeline_2.yml
-  - name: b
-    pipeline_file: pipeline_3.yml
-  - name: fdfsdf ssfsdlkfsdñ sflskfñsdfds sd sf
-    pipeline_file: pipeline_4.yml
