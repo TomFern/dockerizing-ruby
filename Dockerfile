@@ -1,7 +1,7 @@
 # Dockerfile development version
 # Intended to use volumes to map code
 
-FROM ruby:2.7 AS drkiq-development
+FROM ruby:2.7.2 AS drkiq-development
 MAINTAINER SemaphoreCI
 
 # Docker build arguments

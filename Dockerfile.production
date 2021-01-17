@@ -1,7 +1,7 @@
 # Dockerfile development version
 # Intended to run in production
 
-FROM ruby:2.7 AS drkiq-production
+FROM ruby:2.7.2 AS drkiq-production
 MAINTAINER SemaphoreCI
 
 # Docker build arguments
