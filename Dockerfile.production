@@ -33,9 +33,9 @@ RUN bundle install
 COPY drkiq/ .
 RUN chown -R user:user /opt/app
 USER $USER_ID
-RUN yarn install --check-files
-RUN rails webpacker:install
-RUN rails assets:precompile
+# RUN yarn install --check-files
+# RUN rails webpacker:install
+# RUN rails assets:precompile
 VOLUME ["$INSTALL_PATH/public"]
 CMD bundle exec unicorn -c config/unicorn.rb
 
