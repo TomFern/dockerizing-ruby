@@ -2,7 +2,7 @@
 # Intended to use volumes to map code
 
 FROM ruby:2.7.2 AS drkiq-development
-MAINTAINER SemaphoreCI
+# MAINTAINER SemaphoreCI
 
 # Docker build arguments
 ARG USER_ID
@@ -12,26 +12,31 @@ ARG GROUP_ID
 RUN addgroup --gid $GROUP_ID user
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
-# Default directory
-ENV INSTALL_PATH /opt/app
-RUN mkdir -p $INSTALL_PATH
-
-# Install Nodejs
+# Install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o /root/yarn-pubkey.gpg && apt-key add /root/yarn-pubkey.gpg
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y --no-install-recommends nodejs yarn
 
-# Install rails
-RUN gem install rails bundler
-
+# Default directory
+ENV INSTALL_PATH /opt/app
+RUN mkdir -p $INSTALL_PATH
 # Install gems
-COPY drkiq/Gemfile Gemfile
-WORKDIR /opt/app/drkiq
+WORKDIR $INSTALL_PATH
+COPY drkiq/ .
+# COPY drkiq/Gemfile Gemfile
+# COPY drkiq/Gemfile.lock Gemfile.lock
+# WORKDIR /opt/app/drkiq
+RUN rm -rf node_modules vendor
+RUN gem install rails bundler
 RUN bundle install
+RUN yarn install
+# RUN rails webpacker:install
+# RUN yarn install --check-files
 
 # Start server as user
 RUN chown -R user:user /opt/app
 USER $USER_ID
-VOLUME ["$INSTALL_PATH/public"]
+#VOLUME ["$INSTALL_PATH/public"]
+
 CMD bundle exec unicorn -c config/unicorn.rb
 
