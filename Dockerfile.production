@@ -39,8 +39,8 @@ RUN yarn install
 # RUN yarn install --check-files
 
 # Start server as user
-RUN chown -R user:user /opt/app
-USER $USER_ID
+# RUN chown -R user:user /opt/app
+# USER $USER_ID
 #VOLUME ["$INSTALL_PATH/public"]
 
 CMD bundle exec unicorn -c config/unicorn.rb
