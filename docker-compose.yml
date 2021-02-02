@@ -28,10 +28,10 @@ services:
     links:
       - postgres
       - redis
-    volumes:
-      - type: bind
-        source: ./drkiq
-        target: /opt/app/drkiq
+    # volumes:
+    #   - type: bind
+    #     source: ./drkiq
+    #     target: /opt/app/drkiq
     ports:
       - '8010:8010'
     env_file:
@@ -47,10 +47,10 @@ services:
     links:
       - postgres
       - redis
-    volumes:
-      - type: bind
-        source: ./drkiq
-        target: /opt/app/drkiq
+    # volumes:
+      # - type: bind
+      #   source: ./drkiq
+      #   target: /opt/app/drkiq
     env_file:
       - .env
 

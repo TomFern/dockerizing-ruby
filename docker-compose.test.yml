@@ -20,6 +20,7 @@ services:
       - drkiq-redis:/var/lib/redis/data
 
   drkiq:
+    # image: drkiq1
     image: $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
     # build:
     #   context: .

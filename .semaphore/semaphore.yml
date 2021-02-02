@@ -35,9 +35,9 @@ blocks:
           - cat docker-compose.test.yml | envsubst | tee docker-compose.yml
           - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
           - 'docker pull $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest || true'
-          - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rake db:reset'
-          - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rake db:migrate'
+          - 'docker-compose run drkiq rake db:reset'
+          - 'docker-compose run drkiq rake db:migrate'
       jobs:
         - name: Rails Test
           commands:
-            - 'docker-compose run --user "$(id -u):$(id -g)" drkiq rails test'
+            - 'docker-compose run drkiq rails test'

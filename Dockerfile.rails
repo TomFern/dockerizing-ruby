@@ -1,4 +1,4 @@
-FROM ruby:2.7 AS rails-toolbox
+FROM ruby:2.7.2 AS rails-toolbox
 MAINTAINER SemaphoreCI
 
 # Docker build arguments
