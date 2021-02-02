@@ -1,8 +1,6 @@
 # Dockerfile development version
-# Intended to use volumes to map code
 
 FROM ruby:2.7.2 AS drkiq-development
-# MAINTAINER SemaphoreCI
 
 # Docker build arguments
 ARG USER_ID
@@ -20,23 +18,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends nodejs yarn
 # Default directory
 ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
+
 # Install gems
 WORKDIR $INSTALL_PATH
 COPY drkiq/ .
-# COPY drkiq/Gemfile Gemfile
-# COPY drkiq/Gemfile.lock Gemfile.lock
-# WORKDIR /opt/app/drkiq
 RUN rm -rf node_modules vendor
 RUN gem install rails bundler
 RUN bundle install
 RUN yarn install
-# RUN rails webpacker:install
-# RUN yarn install --check-files
 
 # Start server as user
 RUN chown -R user:user /opt/app
 USER $USER_ID
-#VOLUME ["$INSTALL_PATH/public"]
-
 CMD bundle exec unicorn -c config/unicorn.rb
 

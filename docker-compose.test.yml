@@ -20,20 +20,10 @@ services:
       - drkiq-redis:/var/lib/redis/data
 
   drkiq:
-    # image: drkiq1
     image: $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
-    # build:
-    #   context: .
-    #   args:
-    #     USER_ID: "${USER_ID:-1000}"
-    #     GROUP_ID: "${GROUP_ID:-1000}"
     links:
       - postgres
       - redis
-    # volumes:
-    #   - type: bind
-    #     source: ./drkiq
-    #     target: /opt/app/drkiq
     ports:
       - '8010:8010'
     env_file:
@@ -41,27 +31,15 @@ services:
 
   sidekiq:
     image: $DOCKER_USERNAME/dockerizing-ruby-drkiq:latest
-    # build:
-    #   context: 
-    #   args:
-    #     USER_ID: "${USER_ID:-1000}"
-    #     GROUP_ID: "${GROUP_ID:-1000}"
     command: bundle exec sidekiq 
     links:
       - postgres
       - redis
-    # volumes:
-    #   - type: bind
-    #     source: ./drkiq
-    #     target: /opt/app/drkiq
     env_file:
       - .env
 
   nginx:
     image: $DOCKER_USERNAME/dockerizing-ruby-nginx:latest
-    # build:
-    #   context: .
-    #   dockerfile: ./Dockerfile.nginx
     links:
       - drkiq
     ports:
