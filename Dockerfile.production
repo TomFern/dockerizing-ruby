@@ -1,5 +1,5 @@
 # Dockerfile development version
-FROM ruby:2.7.2 AS drkiq-production
+FROM registry.semaphoreci.com/ruby:2.7
 
 # Default directory
 ENV INSTALL_PATH /opt/app

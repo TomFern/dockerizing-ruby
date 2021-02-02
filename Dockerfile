@@ -1,5 +1,4 @@
 # Dockerfile development version
-
 FROM ruby:2.7.2 AS drkiq-development
 
 # Docker build arguments
