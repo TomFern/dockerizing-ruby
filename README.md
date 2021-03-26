@@ -1,5 +1,7 @@
 # Dockerizing Ruby Tutorial
 
+[![Build Status](https://tomfern.semaphoreci.com/badges/dockerizing-ruby/branches/master.svg?key=a7410866-1910-44a0-8ef2-624794abd900)](https://tomfern.semaphoreci.com/projects/dockerizing-ruby)
+
 ## Local setup
 
 Prepare environment, for dev version you can use the example environment:
