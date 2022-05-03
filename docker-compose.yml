@@ -3,7 +3,7 @@ version: "3.9"
 services:
 
   postgres:
-    image: postgres:12.1
+    image: postgres:14.2
     environment:
       POSTGRES_USER: drkiq
       POSTGRES_PASSWORD: test_db_password
@@ -13,7 +13,7 @@ services:
       - drkiq-postgres:/var/lib/postgresql/data
 
   redis:
-    image: redis:5.0.7
+    image: redis:7.0
     ports:
       - '6379:6379'
     volumes:
