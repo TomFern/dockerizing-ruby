@@ -1,5 +1,4 @@
-# Dockerfile development version
-#FROM registry.semaphoreci.com/ruby:2.7
+# Dockerfile CI version
 FROM registry.semaphoreci.com/ruby:3.1
 
 # Default directory
