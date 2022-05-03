@@ -40,4 +40,5 @@ blocks:
       jobs:
         - name: Rails Test
           commands:
-            - 'docker-compose run drkiq rails test'
+            - 'docker-compose run drkiq rake db:test:prepare'
+            - docker-compose run drkiq rails test

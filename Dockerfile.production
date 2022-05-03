@@ -1,5 +1,6 @@
 # Dockerfile development version
-FROM registry.semaphoreci.com/ruby:2.7
+#FROM registry.semaphoreci.com/ruby:2.7
+FROM registry.semaphoreci.com/ruby:3.1
 
 # Default directory
 ENV INSTALL_PATH /opt/app

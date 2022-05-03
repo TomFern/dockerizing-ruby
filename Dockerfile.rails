@@ -1,12 +1,13 @@
-FROM ruby:2.7.2 AS rails-toolbox
+#FROM ruby:2.7.6 AS rails-toolbox
+FROM ruby:3.1.2 AS rails-toolbox
 
 # Docker build arguments
-ARG USER_ID
-ARG GROUP_ID
+#ARG USER_ID
+#ARG GROUP_ID
 
 # Create a user with the same ID and GID
-RUN addgroup --gid $GROUP_ID user
-RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+#RUN addgroup --gid $GROUP_ID user
+#RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
 # Default directory
 ENV INSTALL_PATH /opt/app
@@ -14,9 +15,9 @@ RUN mkdir -p $INSTALL_PATH
 
 # Install rails
 RUN gem install rails bundler
-RUN chown -R user:user /opt/app
+#RUN chown -R user:user /opt/app
 WORKDIR /opt/app
 
 # Run a shell as the user
-USER $USER_ID
+#USER $USER_ID
 CMD ["/bin/sh"]
