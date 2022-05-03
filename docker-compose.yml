@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
 
@@ -22,9 +22,9 @@ services:
   drkiq:
     build:
       context: .
-      args:
-        USER_ID: "${USER_ID:-1000}"
-        GROUP_ID: "${GROUP_ID:-1000}"
+      #args:
+      #  USER_ID: "${USER_ID:-1000}"
+      #  GROUP_ID: "${GROUP_ID:-1000}"
     volumes:
       - ./drkiq:/opt/app
     links:
@@ -38,9 +38,9 @@ services:
   sidekiq:
     build:
       context: .
-      args:
-        USER_ID: "${USER_ID:-1000}"
-        GROUP_ID: "${GROUP_ID:-1000}"
+      #args:
+      #  USER_ID: "${USER_ID:-1000}"
+      #  GROUP_ID: "${GROUP_ID:-1000}"
     command: bundle exec sidekiq 
     links:
       - postgres
