@@ -1,7 +1,7 @@
 # Docker user and group ids
 # On linux these should match your ids
-USER_ID=1000
-GROUP_ID=1000
+#USER_ID=1000
+#GROUP_ID=1000
 
 # You would typically use rake secret to generate a secure token. It is
 # critical that you keep this value private in production.
